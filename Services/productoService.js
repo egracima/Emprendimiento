@@ -1,4 +1,4 @@
-const pool = require('../dataBase/db');
+const pool = require('../database/db');
 
 async function createProducto(producto) {
   const conn = await pool.getConnection();
