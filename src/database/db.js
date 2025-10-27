@@ -1,6 +1,5 @@
 import sql from "mssql";
 import dotenv from "dotenv";
-
 dotenv.config();
 
 const dbSettings = {
@@ -14,14 +13,13 @@ const dbSettings = {
   },
 };
 
-export async function getConnection() {
+export const getConnection = async () => {
   try {
     const pool = await sql.connect(dbSettings);
     return pool;
   } catch (error) {
-    console.error("Error de conexión a la base de datos:", error);
-    throw error;
+    console.error("❌ Error al conectar con la base de datos:", error.message);
   }
-}
+};
 
 export { sql };
