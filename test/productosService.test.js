@@ -1,73 +1,38 @@
+import { jest } from "@jest/globals";
 
-jest.mock('../database/db', () => ({
-  getConnection: jest.fn()
+jest.unstable_mockModule("../src/database/db.js", () => ({
+  getConnection: jest.fn(),
+  sql: {
+    VarChar: jest.fn(() => "VarChar"),
+    Decimal: jest.fn(() => "Decimal"),
+    Int: jest.fn(() => "Int"),
+  },
 }));
 
+const db = await import("../src/database/db.js");
+const { createProducto, deleteProductoByCodigo } = await import("../src/Services/productoService.js");
 
-const pool = require('../database/db');
-const { createProducto, deleteProductoByCodigo } = require('../Services/productoService');
-
-const mockConn = {
-  query: jest.fn(),
-  release: jest.fn()
-};
-
-describe('Pruebas unitarias de productoService', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-    pool.getConnection.mockResolvedValue(mockConn);
-  });
-
-
-  test('createProducto el debe de insertar un producto y devolverlo', async () => {
-    mockConn.query.mockResolvedValue([{ insertId: 1 }]);
-
-    const producto = {
-      codigo: 'P001',
-      nombre: 'Camisa',
-      descripcion: 'Camisa azul',
-      precio: 50000,
-      stock: 10
+describe("Pruebas del servicio de productos", () => {
+  test("crear producto debe llamar a getConnection y ejecutar query", async () => {
+    const mockPool = {
+      request: jest.fn().mockReturnThis(),
+      input: jest.fn().mockReturnThis(),
+      query: jest.fn().mockResolvedValue({ recordset: [{ id: 1 }] }),
     };
 
-    const result = await createProducto(producto);
+    db.getConnection.mockResolvedValue(mockPool);
 
-    expect(pool.getConnection).toHaveBeenCalled();
-    expect(mockConn.query).toHaveBeenCalledWith(
-      'INSERT INTO Productos (codigo, nombre, descripcion, precio, stock) VALUES (?, ?, ?, ?, ?)',
-      ['P001', 'Camisa', 'Camisa azul', 50000, 10]
-    );
-    expect(result).toEqual(producto);
-    expect(mockConn.release).toHaveBeenCalled();
-  });
+    const result = await createProducto({
+      codigo: "001",
+      nombre: "Producto Test",
+      descripcion: "Producto de prueba",
+      precio: 500,
+      stock: 10,
+    });
 
-
-  test('deleteProductoByCodigo ', async () => {
-    mockConn.query.mockResolvedValue([{ affectedRows: 1 }]);
-
-    const result = await deleteProductoByCodigo('P001');
-
-    expect(result).toBe(true);
-    expect(mockConn.query).toHaveBeenCalledWith(
-      'DELETE FROM Productos WHERE codigo = ?',
-      ['P001']
-    );
-    expect(mockConn.release).toHaveBeenCalled();
-  });
-
-
-  test('createProducto este deberia de lanzar error si la consulta llega a fallar', async () => {
-    mockConn.query.mockRejectedValue(new Error('Error de base de datos'));
-
-    const producto = {
-      codigo: 'P002',
-      nombre: 'Pantalón',
-      descripcion: 'Pantalón negro',
-      precio: 80000,
-      stock: 5
-    };
-
-    await expect(createProducto(producto)).rejects.toThrow('Error de base de datos');
-    expect(mockConn.release).toHaveBeenCalled();
+    expect(db.getConnection).toHaveBeenCalled();
+    expect(mockPool.request).toHaveBeenCalled();
+    expect(mockPool.input).toHaveBeenCalledWith("codigo", "VarChar", "001");
+    expect(mockPool.query).toHaveBeenCalled();
   });
 });

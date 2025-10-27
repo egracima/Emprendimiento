@@ -1,37 +1,38 @@
-const pool = require('../database/db');
+import { getConnection, sql } from "../database/db.js";
 
-async function createProducto(producto) {
-  const conn = await pool.getConnection();
+export async function createProducto({ codigo, nombre, descripcion, precio, stock }) {
+  const pool = await getConnection();
+
   try {
-    const { codigo, nombre, descripcion, precio, stock } = producto;
-    const [result] = await conn.query(
-      'INSERT INTO Productos (codigo, nombre, descripcion, precio, stock) VALUES (?, ?, ?, ?, ?)',
-      [codigo, nombre, descripcion, precio, stock]
-    );
-    return producto; 
-  } catch (e) {
-    console.error('Error al crear producto:', e.message);
-    throw e;
-  } finally {
-    conn.release();
+    await pool.request()
+      .input("codigo", sql.VarChar(10), codigo)
+      .input("nombre", sql.VarChar(100), nombre)
+      .input("descripcion", sql.VarChar(255), descripcion)
+      .input("precio", sql.Decimal(10, 2), precio)
+      .input("stock", sql.Int, stock)
+      .query(`
+        INSERT INTO Productos (codigo, nombre, descripcion, precio, stock)
+        VALUES (@codigo, @nombre, @descripcion, @precio, @stock)
+      `);
+
+    return { codigo, nombre, descripcion, precio, stock };
+  } catch (error) {
+    console.error("❌ Error al crear producto:", error.message);
+    throw error;
   }
 }
 
+export async function deleteProductoByCodigo(codigo) {
+  const pool = await getConnection();
 
-async function deleteProductoByCodigo(codigo) {
-  const conn = await pool.getConnection();
   try {
-    const [result] = await conn.query(
-      'DELETE FROM Productos WHERE codigo = ?',
-      [codigo]
-    );
-    return result.affectedRows > 0;
-  } catch (e) {
-    console.error('Error al eliminar producto:', e.message);
-    throw e;
-  } finally {
-    conn.release();
+    const result = await pool.request()
+      .input("codigo", sql.VarChar(10), codigo)
+      .query("DELETE FROM Productos WHERE codigo = @codigo");
+
+    return result.rowsAffected[0] > 0;
+  } catch (error) {
+    console.error("❌ Error al eliminar producto:", error.message);
+    throw error;
   }
 }
-
-module.exports = { createProducto, deleteProductoByCodigo };
