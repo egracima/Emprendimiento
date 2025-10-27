@@ -71,4 +71,3 @@ describe('Pruebas unitarias de productoService', () => {
     expect(mockConn.release).toHaveBeenCalled();
   });
 });
-
