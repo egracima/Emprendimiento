@@ -9,7 +9,7 @@ export async function createProduct(producto) {
       .request()
       .input("IdProducto", sql.VarChar, IdProducto)
       .input("Nombre", sql.VarChar, Nombre)
-      .input("Precio", sql.Decimal(10, 2), Precio)
+      .input("Precio", sql.Money, Precio)
       .input("Stock", sql.Int, Stock)
       .input("Descripcion", sql.VarChar, Descripcion)
       .query(
@@ -43,11 +43,11 @@ export async function updateProduct(IdProducto, producto) {
       .request()
       .input("IdProducto", sql.VarChar, IdProducto)
       .input("Nombre", sql.VarChar, Nombre)
-      .input("Precio", sql.Decimal(10, 2), Precio)
+      .input("Precio", sql.Money, Precio)
       .input("Stock", sql.Int, Stock)
       .input("Descripcion", sql.VarChar, Descripcion)
       .query(
-        "UPDATE Productos SET Nombre = @Nombre, Precio = @Precio, Stock = @Stock, Descripcion = @Descripcion WHERE IdProducto = @IdProducto"
+        "UPDATE Productos SET Nombre = @Nombre, Precio = @Precio, Stock = @Stock, Descripcion = @Descripcion WHERE RTRIM(IdProducto) = @IdProducto"
       );
 
     return result.rowsAffected[0] > 0;
@@ -63,7 +63,7 @@ export async function deleteProductById(IdProducto) {
     const result = await pool
       .request()
       .input("IdProducto", sql.VarChar, IdProducto)
-      .query("DELETE FROM Productos WHERE IdProducto = @IdProducto");
+      .query("DELETE FROM Productos WHERE RTRIM(IdProducto) = @IdProducto");
 
     return result.rowsAffected[0] > 0;
   } catch (err) {

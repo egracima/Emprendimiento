@@ -1,29 +1,29 @@
-import * as productoService from "../Services/productService.js";
+import * as productService from "../Services/productService.js";
 
-async function createProducto(req, res, next) {
+async function createProduct(req, res, next) {
   try {
     const payload = req.body;
-    const newProducto = await productoService.createProduct(payload);
-    res.status(201).json({ ok: true, data: newProducto });
+    const newProduct = await productService.createProduct(payload);
+    res.status(201).json({ ok: true, data: newProduct });
   } catch (err) {
     next(err);
   }
 }
 
-async function getAllProductos(req, res, next) {
+async function getAllProduct(req, res, next) {
   try {
-    const productos = await productoService.getAllProducts();
-    res.status(200).json({ ok: true, data: productos });
+    const product = await productService.getAllProducts();
+    res.status(200).json({ ok: true, data: product });
   } catch (err) {
     next(err);
   }
 }
 
-async function updateProducto(req, res, next) {
+async function updateProduct(req, res, next) {
   try {
     const { IdProducto } = req.params;
     const payload = req.body;
-    const updated = await productoService.updateProduct(IdProducto, payload);
+    const updated = await productService.updateProduct(IdProducto, payload);
     if (!updated) {
       return res.status(404).json({ ok: false, message: "Producto no encontrado" });
     }
@@ -33,10 +33,10 @@ async function updateProducto(req, res, next) {
   }
 }
 
-async function deleteProducto(req, res, next) {
+async function deleteProduct(req, res, next) {
   try {
     const { IdProducto } = req.params;
-    const deleted = await productoService.deleteProductById(IdProducto);
+    const deleted = await productService.deleteProductById(IdProducto);
     if (!deleted) {
       return res.status(404).json({ ok: false, message: "Producto no encontrado" });
     }
@@ -46,4 +46,4 @@ async function deleteProducto(req, res, next) {
   }
 }
 
-export default { createProducto, getAllProductos, updateProducto, deleteProducto }
+export default { createProduct, getAllProduct, updateProduct, deleteProduct }
