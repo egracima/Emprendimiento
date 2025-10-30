@@ -1,4 +1,4 @@
-import { getConnection, sql } from "../dataBase/db.js";
+import { getConnection, sql } from "../database/db.js"
 
 export async function createProduct(producto) {
   const pool = await getConnection();
@@ -7,7 +7,7 @@ export async function createProduct(producto) {
 
     await pool
       .request()
-      .input("IdProducto", sql.Int, IdProducto)
+      .input("IdProducto", sql.VarChar, IdProducto)
       .input("Nombre", sql.VarChar, Nombre)
       .input("Precio", sql.Decimal(10, 2), Precio)
       .input("Stock", sql.Int, Stock)
@@ -29,7 +29,7 @@ export async function getAllProducts() {
     const result = await pool.request().query("SELECT * FROM Productos");
     return result.recordset;
   } catch (err) {
-    console.error("❌ Error al obtener productos:", err.message);
+    console.error("Error al obtener productos:", err.message);
     throw err;
   }
 }
@@ -41,7 +41,7 @@ export async function updateProduct(IdProducto, producto) {
 
     const result = await pool
       .request()
-      .input("IdProducto", sql.Int, IdProducto)
+      .input("IdProducto", sql.VarChar, IdProducto)
       .input("Nombre", sql.VarChar, Nombre)
       .input("Precio", sql.Decimal(10, 2), Precio)
       .input("Stock", sql.Int, Stock)
@@ -62,12 +62,12 @@ export async function deleteProductById(IdProducto) {
   try {
     const result = await pool
       .request()
-      .input("IdProducto", sql.Int, IdProducto)
+      .input("IdProducto", sql.VarChar, IdProducto)
       .query("DELETE FROM Productos WHERE IdProducto = @IdProducto");
 
     return result.rowsAffected[0] > 0;
   } catch (err) {
-    console.error("❌ Error al eliminar producto:", err.message);
+    console.error("Error al eliminar producto:", err.message);
     throw err;
   }
 }

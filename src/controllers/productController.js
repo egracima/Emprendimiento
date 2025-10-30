@@ -1,6 +1,6 @@
 import * as productoService from "../Services/productService.js";
 
-export async function createProducto(req, res, next) {
+async function createProducto(req, res, next) {
   try {
     const payload = req.body;
     const newProducto = await productoService.createProduct(payload);
@@ -10,7 +10,7 @@ export async function createProducto(req, res, next) {
   }
 }
 
-export async function getAllProductos(req, res, next) {
+async function getAllProductos(req, res, next) {
   try {
     const productos = await productoService.getAllProducts();
     res.status(200).json({ ok: true, data: productos });
@@ -19,7 +19,7 @@ export async function getAllProductos(req, res, next) {
   }
 }
 
-export async function updateProducto(req, res, next) {
+async function updateProducto(req, res, next) {
   try {
     const { IdProducto } = req.params;
     const payload = req.body;
@@ -33,7 +33,7 @@ export async function updateProducto(req, res, next) {
   }
 }
 
-export async function deleteProducto(req, res, next) {
+async function deleteProducto(req, res, next) {
   try {
     const { IdProducto } = req.params;
     const deleted = await productoService.deleteProductById(IdProducto);
@@ -46,4 +46,4 @@ export async function deleteProducto(req, res, next) {
   }
 }
 
-
+export default { createProducto, getAllProductos, updateProducto, deleteProducto }

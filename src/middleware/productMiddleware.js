@@ -1,4 +1,4 @@
-const { check, validationResult } = require('express-validator');
+import { check, validationResult } from 'express-validator'
 
 const validateProduct = [
     check('IdProducto')
@@ -12,7 +12,7 @@ const validateProduct = [
         .optional()
         .isLength({ max: 200 }).withMessage('La descripción no puede superar 200 caracteres'),
 
-    check('precio')
+    check('Precio')
         .notEmpty().withMessage('El precio es obligatorio')
         .isFloat({ min: 0 }).withMessage('El precio debe ser un número positivo'),
 
@@ -35,5 +35,4 @@ const validateProduct = [
     }
 ];
 
-module.exports = { validateProduct };
-
+export default validateProduct ;
