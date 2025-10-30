@@ -1,7 +1,6 @@
-const productoService = require('../Services/productoService');
+import * as productoService from "../Services/productService.js";
 
-
-async function createProducto(req, res, next) {
+export async function createProducto(req, res, next) {
   try {
     const payload = req.body;
     const newProducto = await productoService.createProduct(payload);
@@ -11,8 +10,7 @@ async function createProducto(req, res, next) {
   }
 }
 
-
-async function getAllProductos(req, res, next) {
+export async function getAllProductos(req, res, next) {
   try {
     const productos = await productoService.getAllProducts();
     res.status(200).json({ ok: true, data: productos });
@@ -21,8 +19,7 @@ async function getAllProductos(req, res, next) {
   }
 }
 
-
-async function updateProducto(req, res, next) {
+export async function updateProducto(req, res, next) {
   try {
     const { IdProducto } = req.params;
     const payload = req.body;
@@ -36,35 +33,17 @@ async function updateProducto(req, res, next) {
   }
 }
 
-
-async function deleteProducto(req, res, next) {
+export async function deleteProducto(req, res, next) {
   try {
     const { IdProducto } = req.params;
     const deleted = await productoService.deleteProductById(IdProducto);
     if (!deleted) {
       return res.status(404).json({ ok: false, message: "Producto no encontrado" });
     }
-    res.status(200).json({ ok: true, message: "El producto se eliminó" });
+    res.status(200).json({ ok: true, message: "Producto eliminado correctamente" });
   } catch (err) {
     next(err);
   }
 }
 
 
-async function getProductoByNombre(req, res, next) {
-  try {
-    const { Nombre } = req.params;
-    const productos = await productoService.getProductByNombre(Nombre);
-    res.status(200).json({ ok: true, data: productos });
-  } catch (err) {
-    next(err);
-  }
-}
-
-module.exports = {
-  createProducto,
-  getAllProductos,
-  updateProducto,
-  deleteProducto,
-  getProductoByNombre
-};

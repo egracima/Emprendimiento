@@ -1,25 +1,31 @@
-const sql = require('mssql');
-require('dotenv').config();
+
+import sql from "mssql";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const config = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   server: process.env.DB_SERVER,
-  database: process.env.DB_DATABASE,
+  database: process.env.DB_NAME,
   options: {
-    encrypt: false, // Cambiar a true si usas Azure
-    trustServerCertificate: true
-  }
+    encrypt: true,
+    trustServerCertificate: true,
+  },
 };
 
+// Función para obtener la conexión
 async function getConnection() {
   try {
     const pool = await sql.connect(config);
     return pool;
   } catch (err) {
-    console.error("❌ Error de conexión a DB:", err.message);
+    console.error("❌ Error de conexión a la DB:", err.message);
     throw err;
   }
 }
 
-module.exports = { sql, getConnection };
+// Exportar todo lo necesario usando ES Modules
+export { getConnection, sql };
+
