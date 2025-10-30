@@ -16,10 +16,10 @@ app.post('/api/productos', async (req, res) => {
         }
 
         const pool = await sql.connect({
-            user: 'Doky',
-            password: '1234',
+            user: 'ProyectTest',
+            password: '4321',
             server: 'localhost',
-            database: 'ProyectoTest',
+            database: 'ProyectTest',
             options: {
               encrypt: true,
               trustServerCertificate: true

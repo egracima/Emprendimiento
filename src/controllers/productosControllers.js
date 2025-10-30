@@ -1,13 +1,70 @@
-const { getConnection, sql } = require("../config/dataBase");
+const productoService = require('../Services/productoService');
 
-async function obtenerUsuarios(req, res) {
+
+async function createProducto(req, res, next) {
   try {
-    const pool = await getConnection();
-    const result = await pool.request().query("SELECT * FROM Usuarios");
-    res.json(result.recordset);
-  } catch (error) {
-    res.status(500).send(error.message);
+    const payload = req.body;
+    const newProducto = await productoService.createProduct(payload);
+    res.status(201).json({ ok: true, data: newProducto });
+  } catch (err) {
+    next(err);
   }
 }
 
-module.exports = { obtenerUsuarios };
+
+async function getAllProductos(req, res, next) {
+  try {
+    const productos = await productoService.getAllProducts();
+    res.status(200).json({ ok: true, data: productos });
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+async function updateProducto(req, res, next) {
+  try {
+    const { IdProducto } = req.params;
+    const payload = req.body;
+    const updated = await productoService.updateProduct(IdProducto, payload);
+    if (!updated) {
+      return res.status(404).json({ ok: false, message: "Producto no encontrado" });
+    }
+    res.status(200).json({ ok: true, message: "Producto actualizado correctamente" });
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+async function deleteProducto(req, res, next) {
+  try {
+    const { IdProducto } = req.params;
+    const deleted = await productoService.deleteProductById(IdProducto);
+    if (!deleted) {
+      return res.status(404).json({ ok: false, message: "Producto no encontrado" });
+    }
+    res.status(200).json({ ok: true, message: "El producto se eliminó" });
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+async function getProductoByNombre(req, res, next) {
+  try {
+    const { Nombre } = req.params;
+    const productos = await productoService.getProductByNombre(Nombre);
+    res.status(200).json({ ok: true, data: productos });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = {
+  createProducto,
+  getAllProductos,
+  updateProducto,
+  deleteProducto,
+  getProductoByNombre
+};

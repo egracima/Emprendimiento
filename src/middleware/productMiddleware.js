@@ -1,14 +1,14 @@
 const { check, validationResult } = require('express-validator');
 
 const validateProduct = [
-    check('codigo')
-        .notEmpty().withMessage('El código es obligatorio')
-        .isLength({ min: 2 }).withMessage('El código debe tener al menos 2 caracteres'),
+    check('IdProducto')
+        .notEmpty().withMessage('El id producto es obligatorio')
+        .isLength({ min: 2 }).withMessage('id producto debe tener al menos 2 caracteres'),
 
-    check('nombre')
+    check('Nombre')
         .notEmpty().withMessage('El nombre es obligatorio'),
 
-    check('descripcion')
+    check('Descripcion')
         .optional()
         .isLength({ max: 200 }).withMessage('La descripción no puede superar 200 caracteres'),
 
@@ -16,7 +16,7 @@ const validateProduct = [
         .notEmpty().withMessage('El precio es obligatorio')
         .isFloat({ min: 0 }).withMessage('El precio debe ser un número positivo'),
 
-    check('cantidad')
+    check('Stock')
         .notEmpty().withMessage('La cantidad es obligatoria')
         .isInt({ min: 0 }).withMessage('La cantidad debe ser un número entero positivo'),
 
