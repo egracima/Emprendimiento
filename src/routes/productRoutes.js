@@ -1,12 +1,12 @@
 import express from "express";
-import  productoCtrl  from "../controllers/productController.js";
+import  productCtrl  from "../controllers/productController.js";
 import {validateCreateProduct, validateUpdateProduct} from "../middleware/productMiddleware.js"
 
 const router = express.Router();
 
-router.post("/createProduct",validateCreateProduct, productoCtrl.createProduct);
-router.get("/getAllProduct", productoCtrl.getAllProduct);
-router.put("/update/:IdProducto",validateUpdateProduct, productoCtrl.updateProduct);
-router.delete("/delete/:IdProducto", productoCtrl.deleteProduct);
+router.post("/create",validateCreateProduct, productCtrl.createProduct);
+router.get("/getAll", productCtrl.getAllProducts);
+router.put("/update/:IdProducto",validateUpdateProduct, productCtrl.updateProduct);
+router.delete("/delete/:IdProducto", productCtrl.deleteProduct);
 
 export default router;

@@ -10,10 +10,10 @@ async function createProduct(req, res, next) {
   }
 }
 
-async function getAllProduct(req, res, next) {
+async function getAllProducts(req, res, next) {
   try {
-    const product = await productService.getAllProducts();
-    res.status(200).json({ ok: true, data: product });
+    const products = await productService.getAllProducts();
+    res.status(200).json({ ok: true, data: products });
   } catch (err) {
     next(err);
   }
@@ -46,4 +46,4 @@ async function deleteProduct(req, res, next) {
   }
 }
 
-export default { createProduct, getAllProduct, updateProduct, deleteProduct }
+export default { createProduct, getAllProducts, updateProduct, deleteProduct }
