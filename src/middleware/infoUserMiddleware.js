@@ -12,14 +12,16 @@ const validateCreateInfoUser = [
         .notEmpty().withMessage('Los Apellidos son obligatorios'),
 
     check('Correo')
-        .notEmpty().withMessage('El Correo es obligatoria'),
+        .notEmpty().withMessage('El Correo es obligatoria')
+        .isEmail().withMessage('Debe ser un correo válido'),
 
     check('Celular')
         .notEmpty().withMessage('El # de celular es obligatorio')
-        .isInt({ min: 10, ma: 10 }).withMessage('El Celular debe contener 10 digitos'),
+        .isInt({ min: 10, max: 10 }).withMessage('El Celular debe contener 10 digitos'),
 
     check('Direccion')
-        .notEmpty().withMessage('La Direccion es obligatoria'),
+        .notEmpty().withMessage('La Direccion es obligatoria')
+        .isLength({ min: 5 }).withMessage('La dirección debe tener al menos 5 caracteres'),
 
     check('UserNameFk')
         .notEmpty().withMessage('El User es obligatorio'),
@@ -47,14 +49,16 @@ const validateUpdateInfoUser = [
         .notEmpty().withMessage('Los Apellidos son obligatorios'),
 
     check('Correo')
-        .notEmpty().withMessage('El Correo es obligatoria'),
+        .notEmpty().withMessage('El Correo es obligatoria')
+        .isEmail().withMessage('Debe ser un correo válido'),
 
     check('Celular')
         .notEmpty().withMessage('El # de celular es obligatorio')
-        .isInt({ min: 10, ma: 10 }).withMessage('El Celular debe contener 10 digitos'),
+        .isInt({ min: 10, max: 10 }).withMessage('El Celular debe contener 10 digitos'),
 
     check('Direccion')
-        .notEmpty().withMessage('La Direccion es obligatoria'),
+        .notEmpty().withMessage('La Direccion es obligatoria')
+        .isLength({ min: 5 }).withMessage('La dirección debe tener al menos 5 caracteres'),
 
     check('UserNameFk')
         .notEmpty().withMessage('El User es obligatorio'),
