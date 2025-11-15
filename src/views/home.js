@@ -21,14 +21,14 @@ const Home = () => {
 
   return (
     <>
-      {/* HEADER */}
+      {}
       <header className="main-header">
         <div className="logo">Trama y Mecha</div>
         <nav className="nav-menu">
           <a href="#">Inicio</a>
           <a href="#velas">Velas</a>
           <a href="#manillas">Manillas</a>
-          <a href="#">Contacto</a>
+          <a href="#">Contactanos</a>
         </nav>
       </header>
 
@@ -37,7 +37,7 @@ const Home = () => {
         
         <section id="velas" className="featured-products-header">
           <h1>Velas</h1>
-          <p>Descubre nuestra colección de velas únicas y artesanales</p>
+          <p>Descubre la coleccion de velas artesanales</p>
         </section>
         <section className="products-grid">
           {velas.map(product => (
