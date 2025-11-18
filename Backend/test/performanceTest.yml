@@ -1,0 +1,61 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 30
+      arrivalRate: 1
+      name: "Pruebas CRUD de productos"
+  processor: |
+    const { v4: uuidv4 } = require('uuid');
+
+    module.exports = {
+      generarId() {
+        return "TEST-" + uuidv4().slice(0, 5);
+      },
+      guardarIdProducto(requestParams, response, context, ee, next) {
+        if (response && response.body && response.body.IdProducto) {
+          context.vars.IdProducto = response.body.IdProducto;
+        }
+        return next();
+      },
+      resumen(_, __, ___, ____, done) {
+        console.log("\n✅ Pruebas finalizadas correctamente.");
+        console.log("📊 Se realizaron operaciones GET, POST, PUT y DELETE.\n");
+        return done();
+      }
+    }
+
+scenarios:
+  - name: "Escenario CRUD de productos"
+    flow:
+      - get:
+          url: "/productos/getAll"
+      - think: 1
+
+      - post:
+          url: "/productos/create"
+          json:
+            IdProducto: "{{ generarId() }}"
+            Nombre: "Camisa Test"
+            Precio: 75000
+            Stock: 5
+            Descripcion: "Producto temporal para prueba"
+          capture:
+            json: "$"
+            as: "postResponse"
+          afterResponse: "guardarIdProducto"
+      - think: 1
+
+      - put:
+          url: "/productos/update/{{ IdProducto }}"
+          json:
+            Nombre: "Camisa Test Actualizada"
+            Precio: 85000
+            Stock: 6
+            Descripcion: "Producto actualizado correctamente"
+      - think: 1
+
+      - delete:
+          url: "/productos/delete/{{ IdProducto }}"
+      - think: 1
+
+      - function: "resumen"
