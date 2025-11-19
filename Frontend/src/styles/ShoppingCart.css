@@ -1,0 +1,90 @@
+
+
+.superposicion-cesta {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+
+
+.cesta-lateral-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px; 
+    height: 100%;
+    background-color: white;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+    z-index: 20; 
+    padding: 20px;
+    /* Inicia fuera de la pantalla */
+    transform: translateX(100%); 
+    transition: transform 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif; 
+}
+
+/* Muestra el panel deslizándolo */
+.cesta-lateral-panel.open {
+    transform: translateX(0);
+}
+
+/* --- 3. ESTILOS INTERNOS --- */
+
+.encabezado-cesta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.boton-cerrar-panel {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #666;
+}
+
+.lista-productos-cesta {
+    flex-grow: 1; 
+    overflow-y: auto; 
+}
+
+.item-cesta {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.resumen-pedido {
+    padding-top: 20px;
+    border-top: 2px solid #333;
+}
+
+.boton-finalizar-pedido {
+    width: 100%;
+    padding: 12px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.mensaje-cesta-vacia {
+    color: #666;
+    text-align: center;
+    padding-top: 30px;
+}

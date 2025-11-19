@@ -1,0 +1,228 @@
+/* --- 1. ESTILOS GENERALES Y LAYOUT --- */
+.contenedor-pagina-principal {
+    padding: 20px; 
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: sans-serif;
+}
+
+.rejilla-productos {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.seccion-destacados,
+.seccion-categoria {
+    margin-bottom: 40px; 
+}
+
+/* --- 2. CABECERA Y NAVEGACIÓN --- */
+.cabecera-sitio {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+
+.logotipo {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #333;
+}
+
+.navegacion-principal {
+    display: flex;
+    gap: 25px; 
+    margin-right: auto; 
+    margin-left: 40px; 
+}
+
+.enlace-nav {
+    text-decoration: none;
+    color: #666;
+    font-size: 1em;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.enlace-nav:hover {
+    color: #333;
+}
+
+.enlace-nav.activo {
+    color: #333;
+    font-weight: 600; 
+}
+
+/* --- 3. ÍCONO DE LA CESTA (SOLO el ícono en la navegación) --- */
+.contenedor-icono-cesta {
+    position: relative;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.contador-cesta {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #e53935; 
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.5em;
+    font-weight: bold;
+}
+
+/* --- 4. ESTILOS DE LA SECCIÓN DE PRODUCTOS --- */
+.titulo-seccion {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.subtitulo-seccion {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* --- 5. ESTILOS DE LA TARJETA INDIVIDUAL --- */
+.tarjeta-producto-individual {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); 
+    overflow: hidden;
+    width: 100%;
+    max-width: 350px; 
+    position: relative;
+    background-color: white;
+}
+
+.contenedor-imagen {
+    position: relative;
+    height: 300px; 
+    overflow: hidden;
+}
+
+.imagen-producto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.boton-favorito {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #999;
+}
+
+/* Etiquetas */
+.etiqueta-descuento {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #e53935;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.etiqueta-artesanal {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #222;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+/* Detalles */
+.detalles-producto {
+    padding: 15px;
+}
+
+.nombre-producto {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.calificacion-producto {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.estrellas-rating {
+    color: gold;
+    margin-right: 5px;
+}
+
+.conteo-reseñas {
+    color: #777;
+}
+
+/* Precios */
+.info-precio {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 15px;
+}
+
+.precio-actual {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+.precio-anterior {
+    font-size: 0.9em;
+    color: #999;
+    text-decoration: line-through;
+}
+
+/* Botón Añadir a Cesta */
+.boton-añadir-cesta {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.boton-añadir-cesta:hover {
+    background-color: #555;
+}
