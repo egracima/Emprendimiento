@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/ShoppingCart.css'; 
+import MercadoPagoWallet from '../components/mercadoPagoCheckouts/MercadoPagoWallet';
 
 const ShoppingCart = ({ productosEnCesta, cerrarCesta, mostrarCesta }) => {
   
@@ -41,7 +42,7 @@ const ShoppingCart = ({ productosEnCesta, cerrarCesta, mostrarCesta }) => {
             
             <div className="resumen-pedido">
               <p>Total a pagar: <strong>{formatoCOP(montoTotal)}</strong></p>
-              <button className="boton-finalizar-pedido">Finaliza tu pedido</button>
+              <MercadoPagoWallet productos={productosEnCesta} />
             </div>
           </>
         )}

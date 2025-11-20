@@ -6,6 +6,7 @@ import shoppingCartRoutes from "./routes/shoppingCartRoutes.js";
 import recordRoutes from "./routes/recordRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import mercadoPagoRoutes from "./routes/mercadoPagoRoutes.js"
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -24,6 +25,7 @@ app.use("/shoppingCart", shoppingCartRoutes)
 app.use("/record", recordRoutes)
 app.use("/user", userRoutes)
 app.use("/auth", authRoutes)
+app.use("/mercadopago", mercadoPagoRoutes)
 
 app.use((req, res) => {
   res.status(404).json({ error: "Ruta no encontrada" });
