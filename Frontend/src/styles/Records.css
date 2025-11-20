@@ -67,8 +67,7 @@
 .register-links-container {
     display: flex;
     justify-content: center;
-    align-items: center; /* Alinea el separador '|' verticalmente */
-    gap: 15px; /* Espacio más compacto, usando el separador '|' */
+    gap: 30px;
     margin-top: 25px;
     padding-top: 15px;
     border-top: 1px solid #eeeeee;
