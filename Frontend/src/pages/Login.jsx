@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "../styles/Login.css";
 
 export default function Login() {
   const [UserName, setUserName] = useState("");
   const [Pass, setPass] = useState("");
   const [error, setError] = useState("");
-
 
   const validarFormulario = () => {
     if (UserName.trim() === "" || Pass.trim() === "") {
@@ -16,19 +16,13 @@ export default function Login() {
     return true;
   };
 
-  
   const autenticarUsuario = async () => {
     const response = await axios.get("http://localhost:3000/user/getAll");
     const usuarios = response.data.data;
 
-    return usuarios.find(
-      (u) => u.UserName === UserName && u.Pass === Pass
-    );
+    return usuarios.find((u) => u.UserName === UserName && u.Pass === Pass);
   };
 
-  // -----------------------------
-  // Submit principal
-  // -----------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -45,7 +39,6 @@ export default function Login() {
 
       localStorage.setItem("usuario", JSON.stringify(usuario));
       alert("¡Bienvenido!");
-
     } catch (err) {
       console.error("Error al iniciar sesión:", err);
       setError("Hubo un problema con el servidor");
@@ -80,6 +73,13 @@ export default function Login() {
             Entrar
           </button>
         </form>
+
+        <p className="registro-text">
+          ¿No tienes cuenta?{" "}
+          <Link to="/Register" className="registro-link">
+            Regístrate
+          </Link>
+        </p>
       </div>
     </div>
   );

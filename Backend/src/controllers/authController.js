@@ -63,13 +63,7 @@ const login = async (req, res) =>{
         {expiresIn: process.env.JWT_EXPIRE_IN}
     );
 
-    /*
-    res.cookie('token', token,{
-        httpOnly: true,
-        secure: process.env.Enviroment === 'production',
-        maxAge: 60*60
-    })
-    */
+ 
 
     res.redirect('/dashboard');
 
@@ -83,7 +77,7 @@ const login = async (req, res) =>{
 }
 
 const logout = (req, res) =>{
-    //res.clearCookie('token')
+    
     res.redirect('login?success=Cerro sesion con exito');
 }
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "../styles/Registro.css";
 
 function Registro() {
@@ -24,7 +25,6 @@ function Registro() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-  
     console.log("Datos del registro:", form);
   };
 
@@ -33,7 +33,6 @@ function Registro() {
       <h2 className="register-title">Regístrate</h2>
 
       <form onSubmit={handleSubmit}>
-
         <label>Nombre</label>
         <input
           name="Nombre"
@@ -91,6 +90,16 @@ function Registro() {
 
         <button className="register-boton">Registrarte</button>
       </form>
+
+      <div className="register-links-container">
+        <Link to="/" className="nav-link-registro">
+            Ir a Inicio
+        </Link>
+        <span> | </span>
+        <Link to="/Login" className="nav-link-registro">
+            Iniciar Sesión
+        </Link>
+      </div>
     </div>
   );
 }
