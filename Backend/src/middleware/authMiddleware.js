@@ -1,9 +1,9 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 const verifyToken = (req, res, next) =>{
-    const token = req.cookie.token;
+    const token = req.cookies.token;
     if(!token){
-        return res.redirect('/login?error=Debes iniciar sesion');
+        return res.status(401).json({ error: "Debes iniciar sesion" });
     }
     try {
         const decode = jwt.verify(token, process.env.JWT_SECRET);
@@ -12,8 +12,9 @@ const verifyToken = (req, res, next) =>{
     } catch (error) {
         console.error('Error al verificar el token', error);
         res.clearCookie('token');
-        return res.redirect('/login?error=Sesion expirada, inicie sesion nuevamente');
+        return res.status(401).json({ error: "Sesion expirada, inicie sesion nuevamente" });
     }
 };
 
-module.exports = { verifyToken }
+
+export { verifyToken }

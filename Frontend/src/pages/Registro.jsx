@@ -1,15 +1,18 @@
 import { useState } from "react";
 import "../styles/Registro.css";
+import { RegisterUser } from "../services/authServices";
 
 function Registro() {
   const [form, setForm] = useState({
-    Nombre: "",
-    Apellido: "",
-    Documento: "",
+    UserName: "",
+    password: "",
+    confirmPassword: "",
+    Cedula: "",
+    Nombres: "",
+    Apellidos: "",
     Correo: "",
+    Celular: "",
     Direccion: "",
-    Ciudad: "",
-    Telefono: "",
   });
 
   const handleChange = (e) => {
@@ -21,11 +24,17 @@ function Registro() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-  
-    console.log("Datos del registro:", form);
+    try {
+      const response = await RegisterUser(form);
+      console.log("Usuario registrado: ", response.data);
+      alert("Error de regitro")
+    } catch (error) {
+      console.error("Error al registrar",error);
+      alert("Error en el registro")
+    }
   };
 
   return (
@@ -34,58 +43,67 @@ function Registro() {
 
       <form onSubmit={handleSubmit}>
 
-        <label>Nombre</label>
+        <label>Nombre de usuario</label>
         <input
-          name="Nombre"
-          value={form.Nombre}
+          name="UserName"
+          value={form.UserName}
           onChange={handleChange}
         />
 
-        <label>Apellido</label>
+        <label>Contraseña</label>
         <input
-          name="Apellido"
-          value={form.Apellido}
+          name="password"
+          value={form.Password}
           onChange={handleChange}
         />
 
-        <label>Documento</label>
+        <label>Confirme contraseña</label>
         <input
-          name="Documento"
-          value={form.Documento}
+          name="confirmPassword"
+          value={form.ConfirmPassword}
           onChange={handleChange}
         />
 
+        <label>Cedula</label>
+        <input
+          name="Cedula"
+          value={form.Cedula}
+          onChange={handleChange}
+        />
+
+        <label>Nombres</label>
+        <input
+          name="Nombres"
+          value={form.Nombres}
+          onChange={handleChange}
+        />
+
+        <label>Apellidos</label>
+        <input
+          name="Apellidos"
+          value={form.Apellidos}
+          onChange={handleChange}
+        />
+
+          
         <label>Correo</label>
         <input
           name="Correo"
           value={form.Correo}
           onChange={handleChange}
         />
-
-        <div className="two-inputs">
-          <div>
-            <label>Direccion</label>
-            <input
-              name="Direccion"
-              value={form.Direccion}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div>
-            <label>Ciudad</label>
-            <input
-              name="Ciudad"
-              value={form.Ciudad}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-
-        <label>Telefono</label>
+          
+        <label>Direccion</label>
         <input
-          name="Telefono"
-          value={form.Telefono}
+          name="Direccion"
+          value={form.Direccion}
+          onChange={handleChange}
+        />
+          
+        <label>Celular</label>
+        <input
+          name="Celular"
+          value={form.Celular}
           onChange={handleChange}
         />
 
